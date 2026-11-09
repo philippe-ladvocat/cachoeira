@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Trilha da Cachoeira</title>
+  <title>Como Chegar na Cachoeira</title>
   <style>
     * {
       box-sizing: border-box;
@@ -58,20 +58,20 @@
       display: block;
     }
 
-    /* Vignette gradients for text contrast */
-    .slide::before {
+    /* Vignette gradients for text legibility */
+    .slide:not(.cover-slide)::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 120px;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
       pointer-events: none;
       z-index: 1;
     }
 
-    .slide::after {
+    .slide:not(.cover-slide)::after {
       content: "";
       position: absolute;
       bottom: 0;
@@ -83,6 +83,82 @@
       z-index: 1;
     }
 
+    /* Welcome / Cover slide styling */
+    .cover-slide {
+      background: radial-gradient(circle at 50% 30%, #162421 0%, #080d0e 100%);
+      padding: 32px 24px;
+      text-align: center;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100dvh;
+    }
+
+    .cover-content {
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      max-width: 360px;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(56, 239, 125, 0.12);
+      color: #38ef7d;
+      border: 1px solid rgba(56, 239, 125, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .cover-title {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 30%, #b2d5ca 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-desc {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    .swipe-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: calc(24px + env(safe-area-inset-bottom));
+      color: #38ef7d;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      animation: pulseMove 1.8s infinite ease-in-out;
+    }
+
+    .swipe-cta svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    @keyframes pulseMove {
+      0%, 100% { transform: translateX(0); opacity: 0.7; }
+      50% { transform: translateX(8px); opacity: 1; }
+    }
+
     /* Floating caption card */
     .caption-box {
       position: absolute;
@@ -90,10 +166,10 @@
       left: 16px;
       right: 16px;
       z-index: 2;
-      background: rgba(18, 24, 27, 0.72);
+      background: rgba(18, 24, 27, 0.78);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 16px;
       padding: 16px 18px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.45);
@@ -116,7 +192,7 @@
       color: #f3f4f6;
     }
 
-    /* Slide counter in upper right */
+    /* Counter indicator in upper right */
     .top-counter {
       position: fixed;
       top: calc(16px + env(safe-area-inset-top));
@@ -131,42 +207,36 @@
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.05em;
-    }
-
-    /* Swipe hint on first slide */
-    .swipe-hint {
-      position: absolute;
-      top: calc(16px + env(safe-area-inset-top));
-      left: 16px;
-      z-index: 10;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.85);
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      padding: 6px 12px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; transform: translateX(0); }
-      50% { opacity: 1; transform: translateX(4px); }
+      transition: opacity 0.2s ease;
     }
   </style>
 </head>
 <body>
 
-  <div class="top-counter" id="counter">1 / 32</div>
+  <div class="top-counter" id="counter">Início</div>
 
   <div class="slider" id="slider">
 
+    <!-- Slide 0: Cover Slide -->
+    <div class="slide cover-slide">
+      <div></div>
+      <div class="cover-content">
+        <span class="cover-badge">Guia da Trilha</span>
+        <h1 class="cover-title">Como Chegar na Cachoeira</h1>
+        <p class="cover-desc">Deslize para os lados em cada foto para seguir o caminho certo</p>
+      </div>
+      <div class="swipe-cta">
+        <span>Começar trilha &rarr;</span>
+      </div>
+    </div>
+
     <!-- 01 -->
     <div class="slide">
-      <div class="swipe-hint">Deslize para o lado &rarr;</div>
       <img src="Cachoeira00001.jpeg" alt="Foto 1" loading="eager">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 1</span>
+        <p class="caption-text">Saída da porteira, subir à esquerda, daqui até a cachoeira são 4km</p>
+      </div>
     </div>
 
     <!-- 02 -->
@@ -174,7 +244,7 @@
       <img src="Cachoeira00002.jpeg" alt="Foto 2" loading="eager">
       <div class="caption-box">
         <span class="photo-tag">Passo 2</span>
-        <p class="caption-text">Segunda porteira, só lado das caixas d 'água, desce a esquerda.<br><br><em>Só lembrando, que daqui até a cachoeira, são 910 metros.</em></p>
+        <p class="caption-text">Segunda porteira, ao lado das caixas d'água, desce à esquerda</p>
       </div>
     </div>
 
@@ -183,7 +253,7 @@
       <img src="Cachoeira00003.jpeg" alt="Foto 3" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 3</span>
-        <p class="caption-text">Subir acompanhando a cerca.</p>
+        <p class="caption-text">Subir acompanhando a cerca</p>
       </div>
     </div>
 
@@ -192,7 +262,7 @@
       <img src="Cachoeira00004.jpeg" alt="Foto 4" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 4</span>
-        <p class="caption-text">Começa a subir outra vez, sempre acompanhando a cerca.</p>
+        <p class="caption-text">Começa a subir outra vez, sempre acompanhando a cerca</p>
       </div>
     </div>
 
@@ -210,7 +280,7 @@
       <img src="Cachoeira00006.jpeg" alt="Foto 6" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 6</span>
-        <p class="caption-text">Acabou a subida, vira a esquerda e segue a estradinha</p>
+        <p class="caption-text">Acabou a subida, vira à esquerda e segue a estradinha</p>
       </div>
     </div>
 
@@ -219,7 +289,7 @@
       <img src="Cachoeira00007.jpeg" alt="Foto 7" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 7</span>
-        <p class="caption-text">Passar pela porteira e fechar. Até aqui 1 km.</p>
+        <p class="caption-text">Passa pela porteira e fecha. Até aqui você já passou 1km</p>
       </div>
     </div>
 
@@ -228,7 +298,7 @@
       <img src="Cachoeira00008.jpeg" alt="Foto 8" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 8</span>
-        <p class="caption-text">Aqui, segue reto, não vire, continue em frente.</p>
+        <p class="caption-text">Segue reto - NÃO VIRE, continue em frente</p>
       </div>
     </div>
 
@@ -237,7 +307,7 @@
       <img src="Cachoeira00009.jpeg" alt="Foto 9" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 9</span>
-        <p class="caption-text">Primeiro mataburro , vire a direita e desce pela estradinha. Até aqui 2 km.</p>
+        <p class="caption-text">Primeiro mataburro , vire à direita e desce pela estradinha (até aqui foram 2 km)</p>
       </div>
     </div>
 
@@ -246,7 +316,7 @@
       <img src="Cachoeira00010.jpeg" alt="Foto 10" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 10</span>
-        <p class="caption-text">Siga a cerca .</p>
+        <p class="caption-text">Siga a cerca</p>
       </div>
     </div>
 
@@ -264,7 +334,7 @@
       <img src="Cachoeira00012.jpeg" alt="Foto 12" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 12</span>
-        <p class="caption-text">Terceiro mataburro.</p>
+        <p class="caption-text">Terceiro mataburro</p>
       </div>
     </div>
 
@@ -273,23 +343,35 @@
       <img src="Cachoeira00013.jpeg" alt="Foto 13" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 13</span>
-        <p class="caption-text">A entrada da cachoeira fica exatamente a esquerda dessa curva, até aqui 3 km.</p>
+        <p class="caption-text">A entrada da cachoeira fica exatamente à esquerda dessa curva (até aqui foram 3km)</p>
       </div>
     </div>
 
     <!-- 14 -->
     <div class="slide">
       <img src="Cachoeira00014.jpeg" alt="Foto 14" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 14</span>
+        <p class="caption-text">Vão ver essa placa. Daqui até a cachoeira são 910 metros</p>
+      </div>
     </div>
 
     <!-- 15 -->
     <div class="slide">
       <img src="Cachoeira00015.jpeg" alt="Foto 15" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 15</span>
+        <p class="caption-text">Deixa o carro aqui e segue a pé</p>
+      </div>
     </div>
 
     <!-- 16 -->
     <div class="slide">
       <img src="Cachoeira00016.jpeg" alt="Foto 16" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 16</span>
+        <p class="caption-text">Continue</p>
+      </div>
     </div>
 
     <!-- 17 -->
@@ -297,7 +379,7 @@
       <img src="Cachoeira00017.jpeg" alt="Foto 17" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 17</span>
-        <p class="caption-text">Subir a trilha</p>
+        <p class="caption-text">Continue</p>
       </div>
     </div>
 
@@ -306,7 +388,7 @@
       <img src="Cachoeira00018.jpeg" alt="Foto 18" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 18</span>
-        <p class="caption-text">Segunda porteira</p>
+        <p class="caption-text">Subir a trilha</p>
       </div>
     </div>
 
@@ -315,13 +397,17 @@
       <img src="Cachoeira00019.jpeg" alt="Foto 19" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 19</span>
-        <p class="caption-text">Siga a trilha em frente, não siga a cerca.</p>
+        <p class="caption-text">Segunda porteira</p>
       </div>
     </div>
 
     <!-- 20 -->
     <div class="slide">
       <img src="Cachoeira00020.jpeg" alt="Foto 20" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 20</span>
+        <p class="caption-text">Siga a trilha em frente - NÃO SIGA A CERCA!</p>
+      </div>
     </div>
 
     <!-- 21 -->
@@ -329,13 +415,17 @@
       <img src="Cachoeira00021.jpeg" alt="Foto 21" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 21</span>
-        <p class="caption-text">Vai seguindo a trilha</p>
+        <p class="caption-text">Continue</p>
       </div>
     </div>
 
     <!-- 22 -->
     <div class="slide">
       <img src="Cachoeira00022.jpeg" alt="Foto 22" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 22</span>
+        <p class="caption-text">Vai seguindo a trilha</p>
+      </div>
     </div>
 
     <!-- 23 -->
@@ -343,53 +433,89 @@
       <img src="Cachoeira00023.jpeg" alt="Foto 23" loading="lazy">
       <div class="caption-box">
         <span class="photo-tag">Passo 23</span>
-        <p class="caption-text">Essa árvore indica que estão no caminho certo.</p>
+        <p class="caption-text">Continue</p>
       </div>
     </div>
 
     <!-- 24 -->
     <div class="slide">
       <img src="Cachoeira00024.jpeg" alt="Foto 24" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 24</span>
+        <p class="caption-text">Essa árvore indica que estão no caminho certo</p>
+      </div>
     </div>
 
     <!-- 25 -->
     <div class="slide">
       <img src="Cachoeira00025.jpeg" alt="Foto 25" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 25</span>
+        <p class="caption-text">Continue</p>
+      </div>
     </div>
 
     <!-- 26 -->
     <div class="slide">
       <img src="Cachoeira00026.jpeg" alt="Foto 26" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 26</span>
+        <p class="caption-text">Continue</p>
+      </div>
     </div>
 
     <!-- 27 -->
     <div class="slide">
       <img src="Cachoeira00027.jpeg" alt="Foto 27" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 27</span>
+        <p class="caption-text">Continue</p>
+      </div>
     </div>
 
     <!-- 28 -->
     <div class="slide">
       <img src="Cachoeira00028.jpeg" alt="Foto 28" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 28</span>
+        <p class="caption-text">Chegaram</p>
+      </div>
     </div>
 
     <!-- 29 -->
     <div class="slide">
       <img src="Cachoeira00029.jpeg" alt="Foto 29" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 29</span>
+        <p class="caption-text">Chegaram</p>
+      </div>
     </div>
 
     <!-- 30 -->
     <div class="slide">
       <img src="Cachoeira00030.jpeg" alt="Foto 30" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 30</span>
+        <p class="caption-text">Chegaram</p>
+      </div>
     </div>
 
     <!-- 31 -->
     <div class="slide">
       <img src="Cachoeira00031.jpeg" alt="Foto 31" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 31</span>
+        <p class="caption-text">Chegaram</p>
+      </div>
     </div>
 
     <!-- 32 -->
     <div class="slide">
       <img src="Cachoeira00032.jpeg" alt="Foto 32" loading="lazy">
+      <div class="caption-box">
+        <span class="photo-tag">Passo 32</span>
+        <p class="caption-text">A volta é exatamente o mesmo caminho</p>
+      </div>
     </div>
 
   </div>
@@ -397,13 +523,18 @@
   <script>
     const slider = document.getElementById('slider');
     const counter = document.getElementById('counter');
-    const totalSlides = document.querySelectorAll('.slide').length;
+    const totalPhotos = 32;
 
     slider.addEventListener('scroll', () => {
       const scrollPosition = slider.scrollLeft;
       const slideWidth = window.innerWidth;
-      const currentIndex = Math.round(scrollPosition / slideWidth) + 1;
-      counter.textContent = `${currentIndex} / ${totalSlides}`;
+      const currentIndex = Math.round(scrollPosition / slideWidth);
+
+      if (currentIndex === 0) {
+        counter.textContent = 'Início';
+      } else {
+        counter.textContent = `${currentIndex} / ${totalPhotos}`;
+      }
     }, { passive: true });
   </script>
 </body>
